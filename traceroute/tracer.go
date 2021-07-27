@@ -1,6 +1,7 @@
 package traceroute
 
 import (
+	"bytes"
 	"context"
 	"errors"
 	"golang.org/x/net/icmp"
@@ -380,6 +381,7 @@ func newPacket(id uint16, dst net.IP, ttl int) []byte {
 		Body: &icmp.Echo{
 			ID:  int(id),
 			Seq: int(id),
+			Data: bytes.Repeat([]byte{1}, 20),
 		},
 	}
 	p, _ := msg.Marshal(nil)
